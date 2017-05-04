@@ -37,7 +37,17 @@
 
     </div>
 
-    <router-link to="tasks">tasks</router-link>
+    <!-- Tabs -->
+    <q-tabs>
+      <q-tab icon="assessment" route="/" exact>
+        Graph
+      </q-tab>
+
+      <q-tab icon="alarm" route="/tasks" exact>
+        tasks
+      </q-tab>
+    </q-tabs>
+
     <router-view class="router-view"></router-view>
   </div>
 </template>
@@ -48,4 +58,6 @@ export default {}
 </script>
 
 <style lang="styl">
+  .toolbar button
+    color white
 </style>

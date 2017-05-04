@@ -1,19 +1,27 @@
 <template>
-  <div>
-    <h4>new task</h4>
-    <label for="">select device</label>
-    <q-select type="list" v-model.number="newTask.deviceId" :options="selectOptions"></q-select>
+  <div class="layout-padding">
+    <div class="card">
 
-    <div>start time</div>
-    <label for="">h:mm</label><input type="text" v-model="newTask.startTime">
+      <h6>Add New Task</h6>
+      <label for="">select device</label>
 
-    <div>Stop time</div>
-    <label for="">h:mm</label><input type="text" v-model="newTask.stopTime">
+      <q-select type="list" v-model.number="newTask.deviceId" :options="selectOptions" class="full-width"></q-select>
 
-    <button class="primary" @click="addTask">
-      <i>add</i>
-      new Task
-    </button>
+      <div class="floating-label">
+        <input required class="full-width" type="text" v-model="newTask.startTime">
+        <label>Start Time | h:mm</label>
+      </div>
+
+      <div class="floating-label">
+        <input required class="full-width" type="text" v-model="newTask.stopTime">
+        <label>Stop Time | h:mm</label>
+      </div>
+
+      <button class="primary" @click="addTask">
+        <i>add</i>
+        new Task
+      </button>   
+    </div>
   </div>
 </template>
 
