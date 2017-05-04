@@ -8,8 +8,8 @@
       </div>
 
       <div class="floating-label">
-        <input required class="full-width" :value="config.panels.surface" @input="updateSurface">
-        <label>surface of panel</label>
+        <input required class="full-width" :value="config.panels.area" @input="updateArea">
+        <label>area of panel</label>
       </div>
 
       <div class="floating-label">
@@ -18,13 +18,8 @@
       </div>
 
       <div class="floating-label">
-        <input required class="full-width" :value="config.panels.azimuth" @input="updateAzimuth">
-        <label>azimuth</label>
-      </div>
-
-      <div class="floating-label">
-        <input required class="full-width" :value="config.panels.inclination" @input="updateInclination">
-        <label>inclination</label>
+        <input required class="full-width" :value="config.panels.tilt" @input="updateTilt">
+        <label>Tilt</label>
       </div>
 
       <div class="floating-label">
@@ -57,17 +52,14 @@
       updateNumber (e) {
         this.newConfigs.number = Number(e.target.value)
       },
-      updateSurface (e) {
-        this.newConfigs.surface = Number(e.target.value)
+      updateArea (e) {
+        this.newConfigs.area = Number(e.target.value)
       },
       updateEfficiency (e) {
         this.newConfigs.efficiency = Number(e.target.value)
       },
-      updateAzimuth (e) {
-        this.newConfigs.azimuth = Number(e.target.value)
-      },
-      updateInclination (e) {
-        this.newConfigs.inclination = Number(e.target.value)
+      updateTilt (e) {
+        this.newConfigs.tilt = Number(e.target.value)
       },
       updateTemperatureDerating (e) {
         this.newConfigs.temperatureDerating = Number(e.target.value)
@@ -78,3 +70,12 @@
     }
   }
 </script>
+
+<style scoped>
+  .card {
+    padding: 20px;
+  }
+  button.primary {
+    margin-left: 20px;
+  }
+</style>
