@@ -34,58 +34,56 @@ class Panel {
 }
 
 function createPanel ({number, efficiency, area, tilt, temperatureDerating}) {
-  // tilt filter
-  const USE_HORIZANTAL_RADIANCE = false
-  let tiltFilter = new EfficencyFilter('sunposition', function (panel, fi) {
-    let alpha = (90 - fi.zenith) * Math.PI / 180 // elevation
-    let beta = panel.tilt * Math.PI / 180
-    return Math.abs(Math.sin(alpha + beta) / (USE_HORIZANTAL_RADIANCE ? Math.sin(alpha) : 1))
-  })
-
-  // teperature filter
-  let temperatureFilter = new EfficencyFilter('temperature', function (panel, fi) {
-    if (panel.termperature <= 25) {
-      return 1
-    }
-    return (panel.temperature - 25) * temperatureDerating
-  })
-
-  // panel intrinsic efficency
-  let panelIntrensicEfficency = new EfficencyFilter('panel', function (panel, fi) {
-    return panel.efficency
-  })
-
-  // humidity filter
-  let humidityFilter = new EfficencyFilter('humidity', function (panel, fi) {
-    return 1
-  })
-
-  // cloud opacity filter
-  let cloudOpacityFilter = new EfficencyFilter('clouds', function (panel, fi) {
-    return fi.cloud_opacity / 100
-  })
-
-  let manyPanelsEfficency = new EfficencyFilter('manypanels', function (panel, fi) {
-    return number
-  })
-
   // creating our plant
   let panel = new Panel(area, efficiency, tilt)
 
-  panel.mountEfficencyFilter(manyPanelsEfficency)
-  panel.mountEfficencyFilter(panelIntrensicEfficency)
-  panel.mountEfficencyFilter(tiltFilter)
-  panel.mountEfficencyFilter(temperatureFilter)
-  panel.mountEfficencyFilter(humidityFilter)
-  panel.mountEfficencyFilter(cloudOpacityFilter)
+  // tilt filter
+  const USE_HORIZANTAL_RADIANCE = false
+  panel.mountEfficencyFilter(new EfficencyFilter('sunposition', function (panel, fi) {
+    let alpha = (90 - fi.zenith) * Math.PI / 180 // elevation
+    let beta = panel.tilt * Math.PI / 180
+    return Math.abs(Math.sin(alpha + beta) / (USE_HORIZANTAL_RADIANCE ? Math.sin(alpha) : 1))
+  }))
+/*
+  // teperature filter
+  panel.mountEfficencyFilter(new EfficencyFilter('temperature', function (panel, fi) {
+    if (panel.termperature <= 25) {
+      return 1
+    }
+    return (fi.air_temperature - 25) * temperatureDerating
+  }))
+*/
+  // panel intrinsic efficency
+  panel.mountEfficencyFilter(new EfficencyFilter('panel', function (panel, fi) {
+    return panel.efficency
+  }))
+
+  // humidity filter
+  panel.mountEfficencyFilter(new EfficencyFilter('humidity', function (panel, fi) {
+    return 1
+  }))
+
+  // cloud opacity filter
+  panel.mountEfficencyFilter(new EfficencyFilter('clouds', function (panel, fi) {
+    return fi.cloud_opacity / 100
+  }))
+
+  // many filters
+  panel.mountEfficencyFilter(new EfficencyFilter('manypanels', function (panel, fi) {
+    return number
+  }))
 
   return panel
 }
 
 Vue.use(Vuex)
 
+import energyModule from './modules/energy'
+import forecastData from './api/forecasts.json'
+
 export const store = new Vuex.Store({
   state: {
+    forecastData,
     config: {
       panels: {
         number: 1,
@@ -109,7 +107,6 @@ export const store = new Vuex.Store({
   mutations: {
     savePanelsConfigs (state, payload) {
       state.config.panels = Object.assign(state.config.panels, payload)
-      alert(JSON.stringify(state.config.panels))
     },
     addDevice (state, newDevice) {
       let device = Object.assign({}, newDevice)
@@ -120,5 +117,8 @@ export const store = new Vuex.Store({
   },
   actions: {
 
+  },
+  modules: {
+    energy: energyModule
   }
 })
