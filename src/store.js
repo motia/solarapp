@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
+import offlineForecast from './api/forecasts.json'
+import energyModule from './modules/energy'
 
 class EfficencyFilter {
   constructor (name, filter, params) {
@@ -78,12 +81,9 @@ function createPanel ({number, efficiency, area, tilt, temperatureDerating}) {
 
 Vue.use(Vuex)
 
-import energyModule from './modules/energy'
-import forecastData from './api/forecasts.json'
-
 export const store = new Vuex.Store({
   state: {
-    forecastData,
+    forecastData: [],
     config: {
       panels: {
         number: 1,
@@ -113,10 +113,51 @@ export const store = new Vuex.Store({
       let lastIndex = state.devices.length - 1
       device.id = state.devices.length > 0 ? state.devices[lastIndex].id + 1 : 1
       state.devices.push(device)
+    },
+    forecastData (state, forcasts) {
+      state.forecastData.splice(0)
+      state.forecastData = forcasts
     }
   },
   actions: {
+    fetchForecastData ({ commit }) {
+      const API_KEY = 'L_iCwLk31524KiFmetydhO6gHV6UUI68'
 
+      axios.get(
+        'https://api.solcast.com.au/radiation/forecasts?' +
+        'longitude=' + 3 +
+        '&latitude=' + 36 +
+        '&api_key=' + API_KEY +
+        '&format=json'
+        )
+      .then((data) => {
+        // window the data by the next 24 hours
+        let i = 0
+        let startIndex = 0
+        let startTime = new Date()
+        let endTime = new Date(new Date().getTime() + 24 * 3600 * 1000)
+        for (; i < data.forecasts.length; i++) {
+          if (new Date(data.forecasts[i].period_end).getTime() > startTime.getTime()) {
+            startIndex = i - 1
+            break
+          }
+        }
+
+        startIndex = startIndex > 0 ? startIndex : 0
+
+        let endIndex = 0
+        for (; i < data.forecasts.length; i++) {
+          if (new Date(data.forecasts[i].period_end).getTime() > endTime.getTime()) {
+            endIndex = i
+            break
+          }
+        }
+        commit('forecastData', data.forecasts.slice(startIndex, endIndex + 1).forecasts)
+      })
+      .catch(function () {
+        commit('forecastData', offlineForecast)
+      })
+    }
   },
   modules: {
     energy: energyModule

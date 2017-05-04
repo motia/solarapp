@@ -19,6 +19,9 @@ Quasar.start(() => {
     el: '#q-app',
     store,
     router,
-    render: h => h(require('./App'))
+    render: h => h(require('./App')),
+    mounted () {
+      this.$store.dispatch('fetchForecastData')
+    }
   })
 })
