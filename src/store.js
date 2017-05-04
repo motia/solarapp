@@ -31,8 +31,18 @@ export const store = new Vuex.Store({
     addDevice (state, newDevice) {
       let device = Object.assign({}, newDevice)
       let lastIndex = state.devices.length - 1
-      device.id = state.devices.length > 0 ? state.devices[lastIndex].id + 1 : 1
+      device.id = state.devices.length > 0 ? Number(state.devices[lastIndex].id) + 1 : 1
       state.devices.push(device)
+    },
+    addTask (state, newTask) {
+      let task = Object.assign({}, newTask)
+      let lastIndex = state.tasks.length - 1
+      task.id = state.tasks.length > 0 ? Number(state.tasks[lastIndex].id) + 1 : 1
+      task.device = state.devices.find(device => {
+        return device.id === task.deviceId
+      })
+      task.device.isOn = true
+      state.tasks.push(task)
     }
   },
   actions: {

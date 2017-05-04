@@ -1,5 +1,5 @@
 <template>
-  <q-layout>
+  <div>
 
     <!--
       Replace following "div" with
@@ -36,7 +36,10 @@
       </div>
 
     </div>
-  </q-layout>
+
+    <router-link to="tasks">tasks</router-link>
+    <router-view class="router-view"></router-view>
+  </div>
 </template>
 
 <script>
