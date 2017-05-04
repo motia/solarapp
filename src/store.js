@@ -94,7 +94,9 @@ export const store = new Vuex.Store({
         tilt: 20,
         temperatureDerating: 0.4
       }
-    }
+    },
+    devices: [],
+    tasks: []
   },
   getters: {
     getConfig (state) {
@@ -108,6 +110,12 @@ export const store = new Vuex.Store({
     savePanelsConfigs (state, payload) {
       state.config.panels = Object.assign(state.config.panels, payload)
       alert(JSON.stringify(state.config.panels))
+    },
+    addDevice (state, newDevice) {
+      let device = Object.assign({}, newDevice)
+      let lastIndex = state.devices.length - 1
+      device.id = state.devices.length > 0 ? state.devices[lastIndex].id + 1 : 1
+      state.devices.push(device)
     }
   },
   actions: {
