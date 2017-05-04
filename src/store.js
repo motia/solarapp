@@ -15,12 +15,8 @@ export const store = new Vuex.Store({
         temperatureDerating: 1
       }
     },
-    devices: [
-      {
-        name: 'tv',
-        power: 50
-      }
-    ]
+    devices: [],
+    tasks: []
   },
   getters: {
     getConfig (state) {
@@ -34,6 +30,8 @@ export const store = new Vuex.Store({
     },
     addDevice (state, newDevice) {
       let device = Object.assign({}, newDevice)
+      let lastIndex = state.devices.length - 1
+      device.id = state.devices.length > 0 ? state.devices[lastIndex].id + 1 : 1
       state.devices.push(device)
     }
   },
