@@ -14,7 +14,13 @@ export const store = new Vuex.Store({
         inclination: 30,
         temperatureDerating: 1
       }
-    }
+    },
+    devices: [
+      {
+        name: 'tv',
+        power: 50
+      }
+    ]
   },
   getters: {
     getConfig (state) {
@@ -25,6 +31,10 @@ export const store = new Vuex.Store({
     savePanelsConfigs (state, payload) {
       state.config.panels = Object.assign(state.config.panels, payload)
       alert(JSON.stringify(state.config.panels))
+    },
+    addDevice (state, newDevice) {
+      let device = Object.assign({}, newDevice)
+      state.devices.push(device)
     }
   },
   actions: {
