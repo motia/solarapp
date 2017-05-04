@@ -22,6 +22,20 @@ export default new VueRouter({
 
   routes: [
     { path: '/', component: load('Index') }, // Default
+    {
+      path: '/config',
+      component: load('Config'),
+      children: [
+        {
+          path: 'panels',
+          component: load('ConfigPanels')
+        },
+        {
+          path: 'devices',
+          component: load('ConfigDevices')
+        }
+      ]
+    }, // Configuration
     { path: '*', component: load('Error404') } // Not found
   ]
 })

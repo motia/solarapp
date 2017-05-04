@@ -5,7 +5,16 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    variable: 'this is a string variable'
+    config: {
+      panel: {
+        number: 1,
+        surface: 1,
+        efficiency: 1,
+        azimuth: 180,
+        inclination: 30,
+        temperatureDerating: 1
+      }
+    }
   },
   mutations: {
 
