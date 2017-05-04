@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     config: {
-      panel: {
+      panels: {
         number: 1,
         surface: 1,
         efficiency: 1,
@@ -16,8 +16,16 @@ export const store = new Vuex.Store({
       }
     }
   },
+  getters: {
+    getConfig (state) {
+      return state.config
+    }
+  },
   mutations: {
-
+    savePanelsConfigs (state, payload) {
+      state.config.panels = Object.assign(state.config.panels, payload)
+      alert(JSON.stringify(state.config.panels))
+    }
   },
   actions: {
 
