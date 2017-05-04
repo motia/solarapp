@@ -55,22 +55,22 @@
     },
     methods: {
       updateNumber (e) {
-        this.newConfigs.number = e.target.value
+        this.newConfigs.number = Number(e.target.value)
       },
       updateSurface (e) {
-        this.newConfigs.surface = e.target.value
+        this.newConfigs.surface = Number(e.target.value)
       },
       updateEfficiency (e) {
-        this.newConfigs.efficiency = e.target.value
+        this.newConfigs.efficiency = Number(e.target.value)
       },
       updateAzimuth (e) {
-        this.newConfigs.azimuth = e.target.value
+        this.newConfigs.azimuth = Number(e.target.value)
       },
       updateInclination (e) {
-        this.newConfigs.inclination = e.target.value
+        this.newConfigs.inclination = Number(e.target.value)
       },
       updateTemperatureDerating (e) {
-        this.newConfigs.temperatureDerating = e.target.value
+        this.newConfigs.temperatureDerating = Number(e.target.value)
       },
       savePanelsConfigs () {
         this.$store.commit('savePanelsConfigs', this.newConfigs)
