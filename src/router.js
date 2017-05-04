@@ -20,6 +20,7 @@ export default new VueRouter({
    * build publicPath back to '' so Cordova builds work again.
    */
 
+  mode: 'hash',
   routes: [
     { path: '/', component: load('Index') }, // Default
     {

@@ -10,7 +10,9 @@ import Vue from 'vue'
 import Quasar from 'quasar'
 import router from './router'
 import {store} from './store'
+import VueCharts from 'vue-charts'
 
+Vue.use(VueCharts)
 Vue.use(Quasar) // Install Quasar Framework
 
 Quasar.start(() => {
