@@ -81,6 +81,17 @@ function createPanel ({number, efficiency, area, tilt, temperatureDerating}) {
 
 Vue.use(Vuex)
 
+let dummyDevices = [
+  { name: 'TV', power: 100, id: 1 },
+  { name: 'Heater', power: 500, id: 2 }
+]
+
+import moment from 'moment'
+let dummyTasks = [
+   { device: dummyDevices[0], startTime: moment(), endTime: moment().add(60, 'minutes') },
+   { device: dummyDevices[1], startTime: moment().add(40, 'minutes'), endTime: moment().add(20, 'minutes') }
+]
+
 export const store = new Vuex.Store({
   state: {
     forecastData: [],
@@ -93,8 +104,10 @@ export const store = new Vuex.Store({
         temperatureDerating: 0.4
       }
     },
-    devices: [],
-    tasks: []
+    deviceIdCounter: 5,
+    taskIdCounter: 5,
+    devices: dummyDevices,
+    tasks: dummyTasks
   },
   getters: {
     getConfig (state) {
@@ -110,8 +123,7 @@ export const store = new Vuex.Store({
     },
     addDevice (state, newDevice) {
       let device = Object.assign({}, newDevice)
-      let lastIndex = state.devices.length - 1
-      device.id = state.devices.length > 0 ? Number(state.devices[lastIndex].id) + 1 : 1
+      device.id = (++state.deviceIdCounter)
       state.devices.push(device)
     },
     forecastData (state, forcasts) {
@@ -120,12 +132,11 @@ export const store = new Vuex.Store({
     },
     addTask (state, newTask) {
       let task = Object.assign({}, newTask)
-      let lastIndex = state.tasks.length - 1
-      task.id = state.tasks.length > 0 ? Number(state.tasks[lastIndex].id) + 1 : 1
+      task.id = (++state.taskIdCounter)
       task.device = state.devices.find(device => {
         return device.id === task.deviceId
       })
-      task.device.isOn = true
+      // task.device.isOn = true
       state.tasks.push(task)
     }
   },

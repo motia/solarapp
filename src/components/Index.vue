@@ -49,13 +49,8 @@
     </q-tabs>
 
     <router-view class="router-view"></router-view>
-  </div>
+</div>
 </template>
-
-<script>
-
-export default {}
-</script>
 
 <style lang="styl">
   .toolbar button

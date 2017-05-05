@@ -44,10 +44,7 @@
       return {
         newDevice: {
           name: '',
-          power: '',
-          isOn: false,
-          startTime: 0,
-          stopTime: 0
+          power: ''
         }
       }
     },

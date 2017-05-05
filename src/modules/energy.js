@@ -91,11 +91,12 @@ export default {
     },
     powerPlan (state, getters, rootState) {
       let timeline = rootState.tasks.reduce((acc, x) => [...acc, x.startTime, x.endTime], [])
+      timeline = timeline.map(x => new Date(x))
       timeline = [...new Set(timeline)].sort()
       return new Dataset(
-      timeline, timeline.map(
-      t => rootState.tasks.reduce((acc, x) => acc + (x.startTime <= t && t < x.endTime) * x.power, 0)
-      )
+        timeline, timeline.map(
+          t => rootState.tasks.reduce((acc, x) => acc + (x.startTime <= t && t < x.endTime) * x.device.power, 0)
+        )
       )
     }
   }
