@@ -21,7 +21,15 @@ export default new VueRouter({
    */
 
   routes: [
-    { path: '/', component: load('Index') }, // Default
+    { path: '/',
+      component: load('Index'),
+      children: [
+        {
+          path: 'tasks',
+          component: load('Tasks')
+        }
+      ]
+    }, // Default
     {
       path: '/config',
       component: load('Config'),

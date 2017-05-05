@@ -1,5 +1,5 @@
 <template>
-  <q-layout>
+  <div>
 
     <!--
       Replace following "div" with
@@ -36,7 +36,20 @@
       </div>
 
     </div>
-  </q-layout>
+
+    <!-- Tabs -->
+    <q-tabs>
+      <q-tab icon="assessment" route="/" exact>
+        Graph
+      </q-tab>
+
+      <q-tab icon="alarm" route="/tasks" exact>
+        tasks
+      </q-tab>
+    </q-tabs>
+
+    <router-view class="router-view"></router-view>
+  </div>
 </template>
 
 <script>
@@ -45,4 +58,6 @@ export default {}
 </script>
 
 <style lang="styl">
+  .toolbar button
+    color white
 </style>

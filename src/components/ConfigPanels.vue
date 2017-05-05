@@ -1,7 +1,10 @@
 <template>
   <!-- configurations form -->
-  <div>
+  <div class="layout-padding">
     <form class="card">
+      
+      <h6>Panels Settings</h6>
+
       <div class="floating-label">
         <input required class="full-width" :value="config.panels.number" @input="updateNumber">
         <label>number of panels</label>
@@ -27,12 +30,12 @@
         <label>temperature derating</label>
       </div>
 
+      <button class="primary" @click="savePanelsConfigs">
+        <i>save</i>
+        save configurations
+      </button>
     </form>
 
-    <button class="primary" @click="savePanelsConfigs">
-      <i>save</i>
-      save configurations
-    </button>
   </div>
 </template>
 

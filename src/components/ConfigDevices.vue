@@ -1,7 +1,9 @@
 <template>
-  <!-- configurations form -->
-  <div>
+  <div class="layout-padding">
+
+    <!-- add a new device -->
     <form class="card">
+      <h6>Add New Device</h6>
 
       <div class="floating-label">
         <input required class="full-width" v-model="newDevice.name">
@@ -12,19 +14,25 @@
         <input required class="full-width" v-model.number="newDevice.power">
         <label>power (W)</label>
       </div>
+      
+      <button class="primary" @click="addDevice">
+        <i>add</i>
+        add device
+      </button>
 
     </form>
 
-    <button class="primary" @click="addDevice">
-      <i>add</i>
-      add device
-    </button>
-
-    <h5>List of all devices</h5>
-    {{devices.length}}
-    <div v-for="device in devices">
-      <span>{{device.name}}</span>
-      <span>{{device.power}}</span>
+    <!-- list of all devices -->
+    <div class="card">
+      <h6>List of all devices</h6>
+      <div class="list item-delimiter">
+        <div class="item" v-for="device in devices">
+          <div class="item-content">
+            <span>{{device.name}}</span>
+            <span class="pull-right">{{device.power}} W</span>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -58,3 +66,12 @@
   }
 
 </script>
+
+<style>
+  .card button {
+    margin-top: 20px
+  }
+  .card {
+    padding: 15px 8px;
+  }
+</style>
