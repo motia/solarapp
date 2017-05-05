@@ -2,7 +2,7 @@
     <div class="layout-padding">
       <h2>Chart page</h2>
       <div class="card">
-          <vue-chart :labels="chart.labels" :values="chart.values"/>
+        <vue-chart ref="chart" :chart-data="chart" :options="{responsive: true, maintainAspectRatio: false}"/>
       </div>
     </div>
 </template>
@@ -14,6 +14,12 @@ import moment from 'moment'
 export default {
   components: {
     'vue-chart': chart
+  },
+  data () {
+    return {
+      gradient: null,
+      gradient2: null
+    }
   },
   computed: {
     chart () {
@@ -32,7 +38,26 @@ export default {
 
       return {
         labels: t,
-        values: [f, p]
+        datasets: [
+          {
+            label: 'Plan Energy',
+            borderColor: '#FC2525',
+            pointBackgroundColor: 'white',
+            borderWidth: 1,
+            pointBorderColor: 'white',
+            backgroundColor: 'rgba(240, 10, 10, 0.6)',
+            data: p
+          },
+          {
+            label: 'Forecasted Energy',
+            borderColor: '#05CBE1',
+            pointBackgroundColor: 'white',
+            pointBorderColor: 'white',
+            borderWidth: 1,
+            backgroundColor: 'rgba(10, 10, 240, 0.4)',
+            data: f
+          }
+        ]
       }
     }
   }
