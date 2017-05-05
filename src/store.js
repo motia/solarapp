@@ -107,11 +107,14 @@ export const store = new Vuex.Store({
     offlineMode: true,
     config: {
       panels: {
+        latitude: 36,
+        longitude: 3,
         number: 1,
         area: 10,
         efficiency: 0.12,
         tilt: 20,
-        temperatureDerating: 0.4
+        temperatureDerating: 0.4,
+        battery: 500000
       }
     },
     deviceIdCounter: 5,
@@ -151,13 +154,14 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
-    fetchForecastData ({ commit }) {
+    fetchForecastData ({ commit, getters }) {
       const API_KEY = 'L_iCwLk31524KiFmetydhO6gHV6UUI68'
 
+      let { latitude, longitude } = getters.getConfig.panels
       axios.get(
         'https://api.solcast.com.au/radiation/forecasts?' +
-        'longitude=' + 3 +
-        '&latitude=' + 36 +
+        'longitude=' + longitude +
+        '&latitude=' + latitude +
         '&api_key=' + API_KEY +
         '&format=json'
         )

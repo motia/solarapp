@@ -2,35 +2,52 @@
   <!-- configurations form -->
   <div class="layout-padding">
     <form class="card">
-      
+      <h6> Geolocation </h6>
+      <div class="floating-label">
+        <input required class="full-width" v-model.number="newConfigs.latitude">
+        <label>latitude</label>
+      </div>
+
+      <div class="floating-label">
+        <input required class="full-width" v-model.number="newConfigs.longitude">
+        <label>longitude</label>
+      </div>
+
+      <button @click.prevent="loadCordinates" class="secondary full-width">Use GPS</button>
+
       <h6>Panels Settings</h6>
 
       <div class="floating-label">
-        <input required class="full-width" :value="config.panels.number" @input="updateNumber">
+        <input required class="full-width" v-model.number="newConfigs.number">
         <label>number of panels</label>
       </div>
 
       <div class="floating-label">
-        <input required class="full-width" :value="config.panels.area" @input="updateArea">
+        <input required class="full-width" v-model.number="newConfigs.area">
         <label>area of panel</label>
       </div>
 
       <div class="floating-label">
-        <input required class="full-width" :value="config.panels.efficiency" @input="updateEfficiency">
+        <input required class="full-width" v-model.number="newConfigs.efficiency">
         <label>efficiency</label>
       </div>
 
       <div class="floating-label">
-        <input required class="full-width" :value="config.panels.tilt" @input="updateTilt">
+        <input required class="full-width" v-model.number="newConfigs.tilt">
         <label>Tilt</label>
       </div>
 
       <div class="floating-label">
-        <input required class="full-width" :value="config.panels.temperatureDerating" @input="updateTemperatureDerating">
+        <input required class="full-width" v-model.number="newConfigs.temperatureDerating">
         <label>temperature derating</label>
       </div>
 
-      <button class="primary" @click="savePanelsConfigs">
+      <div class="floating-label">
+        <input required class="full-width" v-model.number="newConfigs.battery">
+        <label>Battery Capacity</label>
+      </div>
+
+      <button class="primary full-width" @click="savePanelsConfigs">
         <i>save</i>
         save configurations
       </button>
@@ -43,7 +60,21 @@
   export default {
     data () {
       return {
-        newConfigs: {}
+        newConfigs: {
+          latitude: null,
+          longitude: null,
+          number: null,
+          area: null,
+          efficiency: null,
+          tilt: null,
+          temperatureDerating: null
+        }
+      }
+    },
+    mounted () {
+      let initConfig = this.$store.getters.getConfig.panels
+      for (let key in this.newConfigs) {
+        this.newConfigs[key] = initConfig[key]
       }
     },
     computed: {
@@ -52,24 +83,12 @@
       }
     },
     methods: {
-      updateNumber (e) {
-        this.newConfigs.number = Number(e.target.value)
-      },
-      updateArea (e) {
-        this.newConfigs.area = Number(e.target.value)
-      },
-      updateEfficiency (e) {
-        this.newConfigs.efficiency = Number(e.target.value)
-      },
-      updateTilt (e) {
-        this.newConfigs.tilt = Number(e.target.value)
-      },
-      updateTemperatureDerating (e) {
-        this.newConfigs.temperatureDerating = Number(e.target.value)
+      loadCordinates () {
+        alert('not implemented yet')
       },
       savePanelsConfigs () {
         this.$store.commit('savePanelsConfigs', this.newConfigs)
-      }
+    }
     }
   }
 </script>
