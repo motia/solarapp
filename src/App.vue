@@ -1,8 +1,13 @@
 <template>
   <!-- Don't drop "q-app" class -->
-  <div id="q-app"> 
+  <div id="q-app" class="q-app"> 
     <router-view class="layout-view">  
     </router-view>
+
+    <div v-if="offlineMode">
+      <p>Could not connect to the internet</p>
+      <p>Using old forecast data for Algiers/Algeria in 30 April 2017</p>
+    </div>
   </div>
 </template>
 
@@ -10,7 +15,13 @@
   /*
    * Root component
    */
-  export default {}
+  export default {
+    computed: {
+      offlineMode () {
+        return this.$store.state.offlineMode
+      }
+    }
+  }
 </script>
 
 <style></style>

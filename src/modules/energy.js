@@ -65,13 +65,11 @@ export default {
       }
       return powerShortages
     },
-    /*
     energyForecast (state, getters) {
       let temp = getters.powerForecast.timeline
-      return new Dataset(temp, getters._energyForecast)
+      return new Dataset(temp, getters._energyForecast.values)
     },
-    */
-    energyForecast (state, getters) {
+    _energyForecast (state, getters) {
       // don't remove this function!! necessary to enable reactivity
       return getters.powerForecast.integrand
     },
@@ -83,20 +81,17 @@ export default {
         rootState.forecastData.map(x => panel.calculatePowerForecast(x))
        )
     },
-    /*
     energyPlan (state, getters) {
       let temp = getters.powerPlan.timeline
       console.log(getters._energyPlan)
-      return new Dataset(temp, getters._energyPlan)
+      return new Dataset(temp, getters._energyPlan.values)
     },
-    */
-    energyPlan (state, getters) {
+    _energyPlan (state, getters) {
       // don't remove this function!! necessary to enable reactivity
       return getters.powerPlan.integrand
     },
     powerPlan (state, getters, rootState) {
       let timeline = rootState.tasks.reduce((acc, x) => [...acc, x.startTime, x.endTime], [])
-      timeline = timeline.map(x => new Date(x))
       timeline = [...new Set(timeline)].sort()
       return new Dataset(
         timeline, timeline.map(

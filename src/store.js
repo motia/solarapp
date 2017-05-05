@@ -87,14 +87,24 @@ let dummyDevices = [
 ]
 
 import moment from 'moment'
+let offlineDataStart = new Date(offlineForecast[0].period_end)
 let dummyTasks = [
-   { device: dummyDevices[0], startTime: moment(), endTime: moment().add(60, 'minutes') },
-   { device: dummyDevices[1], startTime: moment().add(40, 'minutes'), endTime: moment().add(20, 'minutes') }
+  {
+    device: dummyDevices[0],
+    startTime: moment(offlineDataStart).add(240, 'minute'),
+    endTime: moment(offlineDataStart).add(300, 'minute')
+  },
+  {
+    device: dummyDevices[1],
+    startTime: moment(offlineDataStart).add(220, 'minute'),
+    endTime: moment(offlineDataStart).add(500, 'minute')
+  }
 ]
 
 export const store = new Vuex.Store({
   state: {
     forecastData: [],
+    offlineMode: true,
     config: {
       panels: {
         number: 1,
