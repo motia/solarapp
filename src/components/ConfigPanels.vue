@@ -43,8 +43,13 @@
       </div>
 
       <div class="floating-label">
-        <input required class="full-width" v-model.number="newConfigs.battery">
+        <input required class="full-width" v-model.number="newConfigs.batteryCapacity">
         <label>Battery Capacity</label>
+      </div>
+
+      <div class="floating-label">
+        <input required class="full-width" v-model.number="newConfigs.batteryLevel">
+        <label>Current Battery Level (replaces sensors for demo)</label>
       </div>
 
       <button class="primary full-width" @click="savePanelsConfigs">
@@ -67,7 +72,9 @@
           area: null,
           efficiency: null,
           tilt: null,
-          temperatureDerating: null
+          temperatureDerating: null,
+          batteryCapacity: null,
+          batteryLevel: null
         }
       }
     },

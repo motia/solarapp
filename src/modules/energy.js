@@ -44,26 +44,32 @@ class Dataset {
 
 export default {
   getters: {
-    powerShortages (state, getters, rootState, rootGetters) {
-      // simulates the energy transfers taking battery capacity in count to detect power shortages
-      let batteryCapacity = 1000
-      let batteryLevel = 30
+    batteryForecast (state, getters, rootState, rootGetters) {
+      let { batteryCapacity, batteryLevel, batteryLevelTime } = rootGetters.getConfig.panels
       const timeline = [...new Set(getters.powerPlan.timeline.concat(getters.powerForecast.timeline))].sort()
-      const l = timeline.length
 
+      const l = timeline.length
       let powerShortages = []
+      batteryLevel = [batteryLevel]
+
       for (let i = 1; i < l; i++) {
-        let energyTransfer = getters.powerForecast.getValueAt(timeline[i - 1]) - getters.powerPlan.getValueIn(timeline[i - 1])
-        batteryLevel += energyTransfer * (timeline[i] - timeline[i - 1]) / 1000
-        if (batteryLevel > batteryCapacity) {
-          batteryLevel = batteryCapacity
+        if (timeline[i] < batteryLevelTime) {
+          batteryLevel.push(batteryLevel[i - 1])
+          continue
         }
-        if (batteryLevel < 0) {
-          powerShortages.push({from: timeline[i - 1], to: timeline[i], energy: batteryLevel})
-          batteryLevel = 0
+        let energyTransfer = rootGetters.powerForecast.getValueAt(timeline[i - 1]) -
+                             rootGetters.powerPlan.getValueIn(timeline[i - 1])
+        let temp = batteryLevel[i] + energyTransfer * (timeline[i] - timeline[i - 1]) / 1000
+        if (temp > batteryCapacity) {
+          temp = batteryCapacity
         }
+        if (temp < 0) {
+          powerShortages.push({from: timeline[i - 1], to: timeline[i], energy: batteryLevel[i]})
+          temp = 0
+        }
+        batteryLevel.push(temp)
       }
-      return powerShortages
+      return new Dataset(timeline, batteryLevel)
     },
     energyForecast (state, getters) {
       let temp = getters.powerForecast.timeline

@@ -23,8 +23,8 @@ export default {
   },
   computed: {
     chart () {
-      let energyForecast = this.$store.getters.energyForecast
-      let energyPlan = this.$store.getters.energyPlan
+      let energyForecast = this.$store.getters.powerForecast
+      let energyPlan = this.$store.getters.powerPlan
 
       let t = []
       let f = []

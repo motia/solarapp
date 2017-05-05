@@ -83,7 +83,8 @@ Vue.use(Vuex)
 
 let dummyDevices = [
   { name: 'TV', power: 100, id: 1 },
-  { name: 'Heater', power: 500, id: 2 }
+  { name: 'Heater', power: 200, id: 2 },
+  { name: 'Oxygen', power: 20, id: 3 }
 ]
 
 import moment from 'moment'
@@ -91,13 +92,13 @@ let offlineDataStart = new Date(offlineForecast[0].period_end)
 let dummyTasks = [
   {
     device: dummyDevices[0],
-    startTime: moment(offlineDataStart).add(240, 'minute'),
-    endTime: moment(offlineDataStart).add(300, 'minute')
+    startTime: +moment(offlineDataStart).add(300, 'minute'),
+    endTime: +moment(offlineDataStart).add(360, 'minute')
   },
   {
     device: dummyDevices[1],
-    startTime: moment(offlineDataStart).add(220, 'minute'),
-    endTime: moment(offlineDataStart).add(500, 'minute')
+    startTime: +moment(offlineDataStart).add(500, 'minute'),
+    endTime: +moment(offlineDataStart).add(510, 'minute')
   }
 ]
 
@@ -109,12 +110,14 @@ export const store = new Vuex.Store({
       panels: {
         latitude: 36,
         longitude: 3,
-        number: 1,
-        area: 10,
+        number: 2,
+        area: 5,
         efficiency: 0.12,
         tilt: 20,
         temperatureDerating: 0.4,
-        battery: 500000
+        batteryCapacity: 500000,
+        batteryLevel: 200000,
+        batteryLevelTime: new Date().getTime()
       }
     },
     deviceIdCounter: 5,
@@ -151,13 +154,22 @@ export const store = new Vuex.Store({
       })
       // task.device.isOn = true
       state.tasks.push(task)
+    },
+    pingBatteryLevel (state) {
+      console.log(state)
+      console.log(state.config.panels.batteryLevelTime)
+      state.config.panels.batteryLevelTime = new Date().getTime()
     }
   },
   actions: {
-    fetchForecastData ({ commit, getters }) {
+    fetchForecastData ({ commit, state, getters }) {
       const API_KEY = 'L_iCwLk31524KiFmetydhO6gHV6UUI68'
 
       let { latitude, longitude } = getters.getConfig.panels
+      if (state.offlineMode) {
+        commit('forecastData', offlineForecast)
+        commit('pingBatteryLevel')
+      }
       axios.get(
         'https://api.solcast.com.au/radiation/forecasts?' +
         'longitude=' + longitude +
@@ -191,6 +203,7 @@ export const store = new Vuex.Store({
       })
       .catch(function () {
         commit('forecastData', offlineForecast)
+        commit('pingBatteryLevel')
       })
     }
   },
