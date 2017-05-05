@@ -4431,13 +4431,6 @@ vue-chartjs@^2.6.2:
   dependencies:
     lodash "^4.17.4"
 
-vue-charts@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/vue-charts/-/vue-charts-0.2.1.tgz#4748e1f485b5d4671e314a24c0099db86633bd31"
-  dependencies:
-    lodash "^4.3.0"
-    vue "^2.0.3"
-
 vue-hot-reload-api@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.1.0.tgz#9ca58a6e0df9078554ce1708688b6578754d86de"
@@ -4482,7 +4475,7 @@ vue-template-es2015-compiler@^1.2.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.5.2.tgz#a0a6c50c941d2a4abda963f2f42c337ac450ee95"
 
-vue@^2.0.3, vue@^2.3.0:
+vue@^2.3.0:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.3.2.tgz#9e52aae3593480be235ff227557837e69f98203a"
 

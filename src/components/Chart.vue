@@ -1,7 +1,8 @@
 <script>
-import {Line} from 'vue-chartjs'
+import { Line , mixins } from 'vue-chartjs'
 
 export default Line.extend({
+  mixins: [mixins.reactiveProp],
   data () {
     return {
       gradient: null,
@@ -25,7 +26,7 @@ export default Line.extend({
       labels: this.labels,
       datasets: [
         {
-          label: 'Data one',
+          label: 'Forecasted Energy',
           borderColor: '#FC2525',
           pointBackgroundColor: 'white',
           borderWidth: 1,
@@ -34,7 +35,7 @@ export default Line.extend({
           data: this.values[0]
         },
         {
-          label: 'Data Two',
+          label: 'Planne Energy',
           borderColor: '#05CBE1',
           pointBackgroundColor: 'white',
           pointBorderColor: 'white',
