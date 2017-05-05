@@ -4,8 +4,8 @@
     <router-view class="layout-view">  
     </router-view>
 
-    <div v-if="offlineMode">
-      <p>Could not connect to the internet</p>
+    <div v-if="offlineMode" class="offline-mode-warning">
+      <h5>Could not connect to the internet</h5>
       <p>Using old forecast data for Algiers/Algeria in 30 April 2017</p>
     </div>
   </div>
@@ -24,4 +24,10 @@
   }
 </script>
 
-<style></style>
+<style>
+  .offline-mode-warning {
+
+    background-color: orange;
+    color: black;
+  }
+</style>
