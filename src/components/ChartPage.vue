@@ -4,6 +4,23 @@
       <div class="card">
         <vue-chart ref="chart" :chart-data="chart" :options="{responsive: true, maintainAspectRatio: false}"/>
       </div>
+
+      <div class="card">
+        <vue-chart ref="chart2" :chart-data="chart2" :options="{responsive: true, maintainAspectRatio: false}"/>
+      </div>
+
+        <p class="caption">Warning !</p>
+
+      <div class="card" v-for="shortage in powerShortages">
+        <div class="list">
+            <div class="item">
+              <div class="item-content">
+                  A power shortage is expected from {{ shortage.from|formatDate }} to {{ shortage.to|formatDate }}
+              </div>
+            </div>
+            <hr>
+        </div>
+      </div>
     </div>
 </template>
 
@@ -12,6 +29,11 @@ import chart from './Chart'
 import moment from 'moment'
 
 export default {
+  filters: {
+    formatDate (x) {
+      return moment(x).format('MM/DD HH:mm')
+    }
+  },
   components: {
     'vue-chart': chart
   },
@@ -22,6 +44,26 @@ export default {
     }
   },
   computed: {
+    powerShortages () {
+      return this.$store.getters.powerShortages
+    },
+    chart2 () {
+      let batteryForecast = this.$store.getters.batteryForecast
+      return {
+        labels: batteryForecast.timeline.map(now => moment(now).format('HH:mm')),
+        datasets: [
+          {
+            label: 'Battery Level',
+            borderColor: '#FC2525',
+            pointBackgroundColor: 'white',
+            borderWidth: 1,
+            pointBorderColor: 'white',
+            backgroundColor: 'rgba(10, 240, 240, 0.6)',
+            data: batteryForecast.values
+          }
+        ]
+      }
+    },
     chart () {
       let energyForecast = this.$store.getters.powerForecast
       let energyPlan = this.$store.getters.powerPlan

@@ -53,11 +53,6 @@
 <script>
   import moment from 'moment'
   export default {
-    filters: {
-      formatDate (x) {
-        return moment(x).format('MM/DD HH:mm')
-      }
-    },
     data () {
       return {
         minDateTime: '',

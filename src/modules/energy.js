@@ -44,27 +44,32 @@ class Dataset {
 
 export default {
   getters: {
+    powerShortages (state, getters, rootState, rootGetters) {
+      let timeline = getters.batteryForecast.timeline
+      let l = timeline.length
+      let powerShortages = []
+      for (let i = 0; i < l; i++) {
+        if (getters.batteryForecast.values[i] === 0) {
+          powerShortages.push({ from: timeline[i - 1], to: timeline[i] })
+        }
+      }
+      return powerShortages
+    },
     batteryForecast (state, getters, rootState, rootGetters) {
-      let { batteryCapacity, batteryLevel, batteryLevelTime } = rootGetters.getConfig.panels
-      const timeline = [...new Set(getters.powerPlan.timeline.concat(getters.powerForecast.timeline))].sort()
+      let { batteryCapacity, batteryLevel } = rootGetters.getConfig.panels
+      const timeline = [...new Set(rootGetters.powerPlan.timeline.concat(rootGetters.powerForecast.timeline))].sort()
 
       const l = timeline.length
-      let powerShortages = []
       batteryLevel = [batteryLevel]
 
       for (let i = 1; i < l; i++) {
-        if (timeline[i] < batteryLevelTime) {
-          batteryLevel.push(batteryLevel[i - 1])
-          continue
-        }
         let energyTransfer = rootGetters.powerForecast.getValueAt(timeline[i - 1]) -
                              rootGetters.powerPlan.getValueIn(timeline[i - 1])
-        let temp = batteryLevel[i] + energyTransfer * (timeline[i] - timeline[i - 1]) / 1000
+        let temp = batteryLevel[i - 1] + energyTransfer * (timeline[i] - timeline[i - 1]) / 1000
         if (temp > batteryCapacity) {
           temp = batteryCapacity
         }
         if (temp < 0) {
-          powerShortages.push({from: timeline[i - 1], to: timeline[i], energy: batteryLevel[i]})
           temp = 0
         }
         batteryLevel.push(temp)

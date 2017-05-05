@@ -17,6 +17,7 @@
 
 ### vizualise the enregy evolution and check for power shortage warning
 ![Graph](docs/img/graph.png)
+![Graph](docs/img/battery.png)
 
 ## Build Setup
 

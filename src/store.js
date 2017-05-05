@@ -169,6 +169,7 @@ export const store = new Vuex.Store({
       if (state.offlineMode) {
         commit('forecastData', offlineForecast)
         commit('pingBatteryLevel')
+        return
       }
       axios.get(
         'https://api.solcast.com.au/radiation/forecasts?' +
