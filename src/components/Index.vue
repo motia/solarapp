@@ -1,11 +1,5 @@
 <template>
   <div>
-
-    <!--
-      Replace following "div" with
-      "<router-view class="layout-view">" component
-      if using subRoutes
-    -->
     <div class="layout-view">
       <!-- Header -->
       <div slot="header" class="toolbar">
@@ -19,7 +13,7 @@
 
         <!-- title -->
         <q-toolbar-title :padding="1">
-          Seasons Control
+          Solar Control
         </q-toolbar-title>
 
         <!-- statistics -->
@@ -39,7 +33,7 @@
 
     <!-- Tabs -->
     <q-tabs>
-      <q-tab icon="assessment" route="/" exact>
+      <q-tab icon="assessment" route="/chart" exact>
         Graph
       </q-tab>
 
