@@ -18,12 +18,21 @@ export default {
   computed: {
     chart () {
       let energyForecast = this.$store.getters.energyForecast
+      let energyPlan = this.$store.getters.energyPlan
+
+      let t = []
+      let f = []
+      let p = []
+      for (let i = 0; i < energyForecast.timeline.length; i++) {
+        let now = energyForecast.timeline[i]
+        t.push(moment(now).format('HH:mm'))
+        f.push(energyForecast.getValueAt(now))
+        p.push(energyPlan.getValueIn(now))
+      }
+
       return {
-        labels: energyForecast.timeline.map(x => moment(x).format('HH')),
-        values: [
-          energyForecast.values,
-          energyForecast.values
-        ]
+        labels: t,
+        values: [f, p]
       }
     }
   }
