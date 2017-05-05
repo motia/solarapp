@@ -83,7 +83,6 @@ export default {
     },
     energyPlan (state, getters) {
       let temp = getters.powerPlan.timeline
-      console.log(getters._energyPlan)
       return new Dataset(temp, getters._energyPlan.values)
     },
     _energyPlan (state, getters) {

@@ -84,11 +84,11 @@
     },
     methods: {
       loadCordinates () {
-        alert('not implemented yet')
+        alert('TODO')
       },
       savePanelsConfigs () {
         this.$store.commit('savePanelsConfigs', this.newConfigs)
-    }
+      }
     }
   }
 </script>
