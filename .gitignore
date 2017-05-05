@@ -8,5 +8,6 @@ test/unit/coverage
 test/e2e/reports
 cordova/platforms
 cordova/plugins
+cordova/www
 thumbs.db
 !.gitkeep
