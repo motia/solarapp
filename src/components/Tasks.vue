@@ -90,8 +90,8 @@
       addTask () {
         let temp = {
           deviceId: this.newTask.deviceId,
-          startTime: this.newTask.startTime.unix(),
-          endTime: this.newTask.endTime.unix()
+          startTime: +moment(this.newTask.startTime),
+          endTime: +moment(this.newTask.endTime)
         }
         this.$store.commit('addTask', temp)
       }
