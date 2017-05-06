@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import chart from '../../components/chart'
+import chart from '~components/chart'
 import moment from 'moment'
 
 export default {
