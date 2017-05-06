@@ -1,54 +1,60 @@
 <template>
-  <!-- configurations form -->
   <div class="layout-padding">
+
     <form class="card">
       <h6> Geolocation </h6>
+      <hr>
       <div class="floating-label">
-        <input required class="full-width" v-model.number="newConfigs.latitude">
+        <input class="full-width" v-model.number="newConfigs.latitude">
         <label>latitude</label>
       </div>
 
       <div class="floating-label">
-        <input required class="full-width" v-model.number="newConfigs.longitude">
+        <input class="full-width" v-model.number="newConfigs.longitude">
         <label>longitude</label>
       </div>
 
-      <button @click.prevent="loadCordinates" class="secondary full-width">Use GPS</button>
+      <button @click.prevent="loadCordinates" class="primary full-width">
+        <i>gps_fixed</i>
+        Use GPS
+      </button>
+    </form>
 
+    <form class="card">
       <h6>Panels Settings</h6>
-
+      <hr>
       <div class="floating-label">
-        <input required class="full-width" v-model.number="newConfigs.number">
+        <input class="full-width" v-model.number="newConfigs.number">
         <label>number of panels</label>
       </div>
 
       <div class="floating-label">
-        <input required class="full-width" v-model.number="newConfigs.area">
+        <input class="full-width" v-model.number="newConfigs.area">
         <label>area of panel</label>
       </div>
 
       <div class="floating-label">
-        <input required class="full-width" v-model.number="newConfigs.efficiency">
+        <input class="full-width" v-model.number="newConfigs.efficiency">
         <label>efficiency</label>
       </div>
 
       <div class="floating-label">
-        <input required class="full-width" v-model.number="newConfigs.tilt">
+        <input class="full-width" v-model.number="newConfigs.tilt">
         <label>Tilt</label>
       </div>
 
       <div class="floating-label">
-        <input required class="full-width" v-model.number="newConfigs.temperatureDerating">
+        <input class="full-width" v-model.number="newConfigs.temperatureDerating">
         <label>temperature derating</label>
       </div>
 
       <div class="floating-label">
-        <input required class="full-width" v-model.number="newConfigs.batteryCapacity">
+        <input class="full-width" v-model.number="newConfigs.batteryCapacity">
         <label>Battery Capacity</label>
       </div>
 
       <div class="floating-label">
-        <input required class="full-width" v-model.number="newConfigs.batteryLevel">
+        <input class="full-width" v-model.number="newConfigs.batteryLevel">
         <label>Current Battery Level (replaces sensors for demo)</label>
       </div>
 
@@ -100,11 +106,18 @@
   }
 </script>
 
-<style scoped>
-  .card {
-    padding: 20px;
+<style>
+  .toolbar button {
+    color: white;
   }
-  button.primary {
-    margin-left: 20px;
+
+  .card button {
+    margin-top: 20px;
   }
+
+  .card,
+  form.card {
+    padding: 15px 8px;
+  }
+
 </style>

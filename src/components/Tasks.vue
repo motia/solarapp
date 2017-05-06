@@ -3,33 +3,36 @@
     <div class="card">
 
       <h6>Add New Task</h6>
-      <label for="">select device</label>
+      <hr>
 
-      <q-select type="list" v-model.number="newTask.deviceId" :options="selectOptions" class="full-width"></q-select>
+      <!-- Select device -->
+      <q-select 
+        type="list" 
+        v-model.number="newTask.deviceId" 
+        :options="selectOptions" 
+        class="full-width"
+        placeholder="Select device"
+      ></q-select>
 
-      <div class="floating-label">
-        <!-- Date & Time -->
-        <q-datetime
-          v-model="newTask.startTime"
-          type="datetime"
-          :min="minDateTime"
-        ></q-datetime>
-        
-        <label>Start Time | h:mm</label>
-      </div>
+      <!-- Start Time -->
+      <q-datetime
+        v-model="newTask.startTime"
+        type="datetime"
+        :min="minDateTime"
+        class="full-width"
+        placeholder="Start Time"
+      ></q-datetime>
 
-      <div class="floating-label">
-        <!-- Date & Time -->
-        <q-datetime
-          v-model="newTask.endTime"
-          type="datetime"
-          :min="newTask.startTime"
-        ></q-datetime>
-        
-        <label>Stop Time | h:mm</label>
-      </div>
+      <!-- End & Time -->
+      <q-datetime
+        v-model="newTask.endTime"
+        type="datetime"
+        :min="newTask.startTime"
+        class="full-width" 
+        placeholder="End Time"
+      ></q-datetime>
 
-      <button class="primary" @click="addTask">
+      <button class="primary full-width" @click="addTask">
         <i>add</i>
         new Task
       </button>
@@ -37,12 +40,15 @@
 
     <div class="card">
       <h6>Task List</h6>
+      <hr>
       <div class="list item-delimiter">
-        <div class="item" v-for="task in tasks">
-          <div class="item-content">
-            <span>{{ task.device.name }}</span>
-            <span>{{ task.startTime|formatDate }} To {{ task.endTime|formatDate }}</span>
-            <span class="pull-right">{{task.device.power}} W</span>
+        <div class="item two-lines" v-for="task in tasks">
+          <div class="item-content has-secondary">
+            <div>{{ task.device.name }}</div>
+            <div>{{ task.startTime|formatDate }} To {{ task.endTime|formatDate }}</div>
+          </div>
+          <div class="item-secondary stamp">
+             {{task.device.power}} W
           </div>
         </div>
       </div>
@@ -88,6 +94,11 @@
           endTime: this.newTask.endTime.unix()
         }
         this.$store.commit('addTask', temp)
+      }
+    },
+    filters: {
+      formatDate (timestamp) {
+        return moment(timestamp).format('MM-dd hh:mm')
       }
     }
   }

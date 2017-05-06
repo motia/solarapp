@@ -26,7 +26,7 @@ export default new VueRouter({
       component: load('Index'),
       children: [
         {
-          path: 'chart',
+          path: '',
           component: load('ChartPage')
         },
         {
@@ -40,7 +40,7 @@ export default new VueRouter({
       component: load('Config'),
       children: [
         {
-          path: 'panels',
+          path: '',
           component: load('ConfigPanels')
         },
         {

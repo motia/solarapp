@@ -5,8 +5,8 @@
     </router-view>
 
     <div v-if="offlineMode" class="offline-mode-warning">
-      <h5>Could not connect to the internet</h5>
-      <p>Using old forecast data for Algiers/Algeria in 30 April 2017</p>
+      <p>Could not connect to the internet !</p>
+      <small>Using old forecast data for Algiers/Algeria in 30/04/17</small>
     </div>
   </div>
 </template>
@@ -25,9 +25,27 @@
 </script>
 
 <style>
-  .offline-mode-warning {
+  .toolbar button {
+    color: white;
+  }
 
-    background-color: orange;
-    color: black;
+  .card button {
+    margin-top: 20px;
+  }
+
+  .card,
+  form.card {
+    padding: 15px 8px;
+  }
+
+  .offline-mode-warning {
+    text-align: center;
+    padding: 4px 8px;
+    background-color: #f87516;
+    color: white;
+  }
+  
+  .offline-mode-warning p {
+    margin: 0px;
   }
 </style>

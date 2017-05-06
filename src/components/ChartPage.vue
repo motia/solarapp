@@ -1,21 +1,34 @@
 <template>
     <div class="layout-padding">
-      <h2>Chart page</h2>
+
+      <!-- Energy Chart -->
       <div class="card">
+        <h6>Energy Chart</h6>
+        <hr>
         <vue-chart ref="chart" :chart-data="chart" :options="{responsive: true, maintainAspectRatio: false}"/>
       </div>
 
+      <!-- Battery Level -->
       <div class="card">
+        <h6>Battery Level</h6>
+        <hr>
         <vue-chart ref="chart2" :chart-data="chart2" :options="{responsive: true, maintainAspectRatio: false}"/>
       </div>
 
-        <p class="caption">Warning !</p>
+      <!-- Warning -->
+      <div class="card" >
+        <h6>Warning !</h6>
+        <hr>
 
-      <div class="card" v-for="shortage in powerShortages">
-        <div class="list">
-            <div class="item">
+        <div class="list item-delimiter">
+            <div class="item two-lines" v-for="shortage in powerShortages">
               <div class="item-content">
-                  A power shortage is expected from {{ shortage.from|formatDate }} to {{ shortage.to|formatDate }}
+                <div>
+                    A power shortage is expected
+                </div> 
+                <div>
+                  from {{ shortage.from|formatDate }} to {{ shortage.to|formatDate }}
+                </div>
               </div>
             </div>
             <hr>

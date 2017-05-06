@@ -15,11 +15,6 @@
         Settings
       </q-toolbar-title>
 
-      <!-- statistics -->
-      <button class="hide-on-drawer-visible">
-        <i>assessment</i>
-      </button>
-
       <!-- settings -->
       <router-link to="/config">
         <button class="hide-on-drawer-visible">
@@ -30,7 +25,7 @@
 
     <!-- Tabs -->
     <q-tabs>
-      <q-tab icon="view_module" route="/config/panels" exact>
+      <q-tab icon="view_module" route="/config" exact>
         Panels
       </q-tab>
 

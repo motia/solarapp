@@ -16,11 +16,6 @@
           Solar Control
         </q-toolbar-title>
 
-        <!-- statistics -->
-        <button class="hide-on-drawer-visible">
-          <i>assessment</i>
-        </button>
-
         <!-- settings -->
         <router-link to="/config">
           <button class="hide-on-drawer-visible">
@@ -33,8 +28,8 @@
 
     <!-- Tabs -->
     <q-tabs>
-      <q-tab icon="assessment" route="/chart" exact>
-        Graph
+      <q-tab icon="assessment" route="/" exact>
+        Charts
       </q-tab>
 
       <q-tab icon="alarm" route="/tasks" exact>
@@ -45,8 +40,3 @@
     <router-view class="router-view"></router-view>
 </div>
 </template>
-
-<style lang="styl">
-  .toolbar button
-    color white
-</style>
