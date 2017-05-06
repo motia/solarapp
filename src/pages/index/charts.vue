@@ -25,7 +25,7 @@
               <div class="item-content">
                 <div>
                     A power shortage is expected
-                </div> 
+                </div>
                 <div>
                   from {{ shortage.from|formatDate }} to {{ shortage.to|formatDate }}
                 </div>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import chart from './Chart'
+import chart from '../../components/chart'
 import moment from 'moment'
 
 export default {

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import offlineForecast from './api/forecasts.json'
+import offlineForecast from '../lib/forecasts.json'
 import energyModule from './modules/energy'
 
 class EfficencyFilter {
